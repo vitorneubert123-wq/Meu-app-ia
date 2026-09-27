@@ -84,7 +84,7 @@ if pergunta:
 
     prompt = INSTRUCAO + "\n\nMensagem do usuário:\n" + pergunta
 
-    rtry:
+    try:
     resposta = client.models.generate_content(
         model="gemini-3.8-flash",
         contents=prompt
