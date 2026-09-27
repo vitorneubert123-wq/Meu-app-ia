@@ -84,12 +84,19 @@ if pergunta:
 
     prompt = INSTRUCAO + "\n\nMensagem do usuário:\n" + pergunta
 
+    rtry:
     resposta = client.models.generate_content(
         model="gemini-3.8-flash",
         contents=prompt
     )
 
     texto_resposta = resposta.text
+
+except Exception as e:
+    st.error("Deu erro ao falar com a IA:")
+    st.code(str(e))
+    st.stop()
+
 
     st.session_state.mensagens.append({
         "role": "assistant",
