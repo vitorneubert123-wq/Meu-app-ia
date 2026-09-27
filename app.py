@@ -90,9 +90,7 @@ if pergunta:
 )
 
 texto_resposta = resposta.text
-
-
-    st.session_state.mensagens.append({
+st.session_state.mensagens.append({
         "role": "assistant",
         "content": texto_resposta
     })
