@@ -1,9 +1,10 @@
 import streamlit as st
-from anthropic import Anthropic
+import google.generativeai as genai
 
 st.title("Meu App de IA")
 
-client = Anthropic(api_key=st.secrets["ANTHROPIC_API_KEY"])
+genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 if "mensagens" not in st.session_state:
     st.session_state.mensagens = []
@@ -19,12 +20,8 @@ if pergunta:
     with st.chat_message("user"):
         st.write(pergunta)
 
-    resposta = client.messages.create(
-        model="claude-sonnet-4-6",
-        max_tokens=1000,
-        messages=st.session_state.mensagens
-    )
-    texto_resposta = resposta.content[0].text
+    resposta = model.generate_content(pergunta)
+    texto_resposta = resposta.text
 
     st.session_state.mensagens.append({"role": "assistant", "content": texto_resposta})
     with st.chat_message("assistant"):
