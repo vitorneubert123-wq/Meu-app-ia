@@ -1,3 +1,4 @@
+
 import streamlit as st
 from google import genai
 
@@ -73,7 +74,6 @@ for msg in st.session_state.mensagens:
 pergunta = st.chat_input("Fala aí, manda sua pergunta...")
 
 if pergunta:
-
     st.session_state.mensagens.append({
         "role": "user",
         "content": pergunta
@@ -85,12 +85,13 @@ if pergunta:
     prompt = INSTRUCAO + "\n\nMensagem do usuário:\n" + pergunta
 
     resposta = client.models.generate_content(
-    model="gemini-3.8-flash",
-    contents=prompt
-)
+        model="gemini-3.8-flash",
+        contents=prompt
+    )
 
-texto_resposta = resposta.text
-st.session_state.mensagens.append({
+    texto_resposta = resposta.text
+
+    st.session_state.mensagens.append({
         "role": "assistant",
         "content": texto_resposta
     })
